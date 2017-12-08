@@ -8,7 +8,7 @@ const MIN_REFRESH_TIMEOUT = 1000 * 60;
 // if the token is not available, the job will
 // wait for this number of milliseconds
 const MAX_JOB_WAIT_TIME = 1000 * 10;
-const ERR_JOB_TIMEOUT = new Error('job timeout');
+const ERR_JOB_TIMEOUT = new Error('job timed out waiting for an auth token to be acquired');
 
 
 export default class Transport {
@@ -115,7 +115,7 @@ export default class Transport {
       // TODO handle tokens without expiration times
       const payload = jwt.decode(token);
       if (!payload || !payload.exp) {
-        throw new Error('invalid token');
+        throw new Error('invalid token payload');
       }
 
       // schedule next token refresh

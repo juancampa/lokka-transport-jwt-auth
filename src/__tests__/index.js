@@ -106,7 +106,9 @@ describe('Transport', function () {
 
     it('should add to waitlist if the transport is not ready', function () {
       const tr = new Transport('endpoint', Function());
-      tr.send('{}', {}, 'op');
+
+      // Send a request. Ignore the rejection
+      tr.send('{}', {}, 'op').catch(() => {});
       expect(tr._waitlist.length).to.equal(1);
       tr.close();
     });
