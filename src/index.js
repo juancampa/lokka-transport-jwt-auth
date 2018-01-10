@@ -122,7 +122,7 @@ export default class Transport {
       const expires = payload.exp * 1000;
       this._scheduleRefresh(expires);
     } catch (e) {
-      // console.log the error??
+      console.log(e);
       this._transport = null;
       this._scheduleRefresh(0);
     }
@@ -133,7 +133,7 @@ export default class Transport {
     const timeLeft = expires - now;
 
     if (timeLeft <= MIN_REFRESH_TIMEOUT) {
-      this._refreshToken();
+      setTimeout(() => this._refreshToken(), 1000);
       return;
     }
 
